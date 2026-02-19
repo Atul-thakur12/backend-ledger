@@ -39,40 +39,30 @@ const sendEmail = async (to, subject, text, html) => {
 
 async function sendRegistrationEmail(userEmail, name) {
   const subject = "WELCOME to BACKEND-LEDGER!";
-  const text = `Hello ${name},\n\n Thank You for registration at Backend-Ledger. 
-    We're excited to have you on board! \n\n Best regards,\nThe Backend Ledger Team`;
-  const html = `<p>Hello ${name},</p><p> Thank you for registration at Backend-Ledger. 
-    We're excited to have you on board!</p><p>Best regards,<br>The Backend Ledger Team</p>`;
+  const text = `Hello ${name},\n\n Thank You for registration at Backend-Ledger. We're excited to have you on board! \n\n Best regards,\nThe Backend Ledger Team`;
+  const html = `<p>Hello ${name},</p><p> Thank you for registration at Backend-Ledger. We're excited to have you on board!</p><p>Best regards,<br>The Backend Ledger Team</p>`;
 
   await sendEmail(userEmail, subject, text, html);
 }
 
-async function sendLoginEmail(userEmail, name) {
-  const subject = "Login Alert – Backend-Ledger Account Accessed";
-  const text = `Hello ${name},
+async function sendTransactionEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Successful";
+  const text = `Hello ${name},\n\n Your transaction of ₹${amount} to account ${toAccount} has been successful. \n\n Best regards,\nBackend Ledger Team`;
+  const html = `<p>Hello ${name},</p><p>Your transaction of <strong>₹${amount}</strong> to account <strong>${toAccount}</strong> has been successful.</p><p>Best regards,<br>Backend Ledger Team</p>`;
 
-Your Backend-Ledger account was successfully logged in.
+  await sendEmail(userEmail, subject, text, html);
+}
 
-If this was you, no further action is needed.
-
-If you did NOT log in, please change your password immediately to secure your account.
-
-Stay secure,
-The Backend Ledger Team
-`;
-
-  const html = `
-  <p>Hello ${name},</p>
-  <p>Your <strong>Backend-Ledger</strong> account was successfully logged in.</p>
-  <p>If this was you, no further action is needed.</p>
-  <p style="color:red;"><strong>If you did NOT log in, please change your password immediately to secure your account.</strong></p>
-  <p>Stay secure,<br>The Backend Ledger Team</p>
-`;
+async function sendTransactionFailureEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Failed";
+  const text = `Hello ${name},\n\n We regret to inform you that your transaction of ₹${amount} to account ${toAccount} has failed. Please check your account balance and try again. \n\n Best regards,\nBackend Ledger Team`;
+  const html = `<p>Hello ${name},</p><p>We regret to inform you that your transaction of <strong>₹${amount}</strong> to account <strong>${toAccount}</strong> has failed.</p><p>Please check your account balance and try again.</p><p>Best regards,<br>Backend Ledger Team</p>`;
 
   await sendEmail(userEmail, subject, text, html);
 }
 
 module.exports = {
   sendRegistrationEmail,
-  sendLoginEmail
+  sendTransactionEmail,
+  sendTransactionFailureEmail
 };
