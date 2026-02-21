@@ -152,10 +152,9 @@ async function createTransaction(req, res) {
         transaction: transaction
     })
 
-    module.exports = {
-        createTransaction
-    }
 }
 
 
-
+module.exports = {
+        createTransaction
+    }
